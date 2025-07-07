@@ -1,0 +1,81 @@
+
+# E-commerce Crisis Impact Analysis – A SQL-Driven Portfolio Project
+
+This project simulates how a data analyst would assess the **business impact of a crisis** (e.g., economic downturn, supply chain disruption, or global event) on an e-commerce platform using **advanced SQL techniques**.
+
+---
+
+## Project Objective
+
+**Goal:** Identify shifts in customer behavior, product performance, and sales patterns **before vs. after** a simulated crisis point.
+
+By comparing trends across both periods, I aim to uncover:
+
+- Drop or rebound in revenue
+- Changes in top-selling categories
+- Customer churn vs retention
+- First-time buyer trends
+- Emerging product winners/losers
+
+---
+
+## Tools & Technologies
+
+- **MySQL** — for querying the transactional database
+- **Excel** — to visualize query outputs
+- **Git & GitHub** — for version control and portfolio showcase
+
+---
+
+## Dataset Overview (Simulated)
+
+| Table | Description |
+|-------|-------------|
+| `customers` | Customer records with signup and activity dates |
+| `products` | Product info with categories and prices |
+| `orders` | Transaction log with order dates and revenue |
+| `order_items` | Line-item level product purchases |
+| `returns` | Returned orders and their financial impact |
+
+A **crisis month** (e.g. *April 2024*) was used as the dividing line between pre-crisis and post-crisis periods.
+
+---
+
+## Key SQL Insights
+
+### 1. Monthly Revenue Trend Pre vs Post Crisis
+```sql
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, SUM(total_amount) AS revenue
+FROM orders
+GROUP BY month
+```
+**Outcome:** Clear drop in revenue in crisis month, followed by gradual recovery.
+
+---
+
+### 2. Top 3 Product Categories by Revenue (Pre & Post)
+Used `RANK()` and `CASE WHEN` to extract performance by category before and after crisis.
+
+**Outcome:** "Clothing" and "Books" remained top performers post-crisis, while "Fitness" dropped off.
+
+---
+
+### 3. New vs Returning Customer Behavior
+Used `MIN(order_date)` to identify **first-time buyers** in each period.
+
+**Outcome:** Spike in new customers during crisis, but poor retention post-crisis.
+
+---
+
+### 4. Repeat Purchase Patterns (Retention Analysis)
+Used `COUNT(order_id)` with `GROUP BY customer_id` to flag customers with multiple purchases.
+
+**Outcome:** Retention rates dropped from **36% pre-crisis** to **21% post-crisis**.
+
+---
+
+### 5. Returned Products and Revenue Loss
+Assessed which products had highest return rates and their contribution to lost revenue.
+
+**Outcome:** "Electronics" had high return volume post-crisis, affecting margin.
+
